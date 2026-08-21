@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Sorry Generator — Repeat Your Message Easily</title>
+<meta name="description" content="আপনার লেখা ১ থেকে ১০,০০০ বার পর্যন্ত তৈরি করুন এবং এক ক্লিকে কপি করুন।" />
+<meta name="theme-color" content="#0b0a17" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Sorry Generator — Repeat Your Message Easily" />
+<meta property="og:description" content="আপনার লেখা ১ থেকে ১০,০০০ বার পর্যন্ত তৈরি করুন এবং এক ক্লিকে কপি করুন।" />
+<meta property="og:locale" content="bn_BD" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Sorry Generator" />
+<meta name="twitter:description" content="আপনার লেখা হাজারবার তৈরি করুন — এক ক্লিকেই কপি করুন।" />
+
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div id="bg-css" class="bg-css" aria-hidden="true">
+  <span class="blob blob-a"></span>
+  <span class="blob blob-b"></span>
+  <span class="blob blob-c"></span>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+
+<a class="skip-link" href="#main">মূল কনটেন্টে যান</a>
+
+<div class="page">
+
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 3C7 3 3 6.8 3 11.4c0 2.6 1.4 4.9 3.6 6.4-.15 1.1-.6 2.2-1.4 3.1a.5.5 0 00.45.8c1.8-.25 3.35-1 4.55-1.95 .58.1 1.18.15 1.8.15 5 0 9-3.8 9-8.5S17 3 12 3z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="brand-name">Sorry Generator</span>
+    </div>
+    <p class="brand-subtitle">এক লাইনের লেখা, হাজারবার — এক ক্লিকেই।</p>
+  </header>
+
+  <main id="main" class="layout">
+
+    <section class="card composer" aria-labelledby="composer-heading">
+      <h1 id="composer-heading" class="card-title">
+        <span class="title-bn">লেখা তৈরি করুন</span>
+        <span class="title-en">Write it once, repeat it a thousand times</span>
+      </h1>
+
+      <div class="field">
+        <label for="text-input">লেখা লিখুন</label>
+        <textarea
+          id="text-input"
+          name="text-input"
+          rows="3"
+          maxlength="500"
+          placeholder="যেমন: Sorry apu 😭"
+          aria-describedby="text-count-hint"
+        >Sorry apu 😭</textarea>
+        <div class="field-foot">
+          <span id="text-count-hint" class="hint">বাংলা, English, Banglish ও ইমোজি — সবই চলবে।</span>
+          <span id="text-char-count" class="char-count">12 / 500</span>
+        </div>
+        <p id="text-error" class="error-msg" role="alert" hidden></p>
+      </div>
+
+      <div class="field field-count">
+        <label for="count-input">কতবার লিখতে চান?</label>
+        <div class="count-row">
+          <input
+            id="count-input"
+            name="count-input"
+            type="number"
+            inputmode="numeric"
+            min="1"
+            max="10000"
+            step="1"
+            value="200"
+            aria-describedby="count-hint"
+          />
+          <div class="quick-counts" role="group" aria-label="দ্রুত সংখ্যা নির্বাচন">
+            <button type="button" class="chip" data-count="10">১০</button>
+            <button type="button" class="chip" data-count="100">১০০</button>
+            <button type="button" class="chip" data-count="500">৫০০</button>
+            <button type="button" class="chip" data-count="1000">১০০০</button>
+            <button type="button" class="chip" data-count="10000">১০০০০</button>
+          </div>
+        </div>
+        <span id="count-hint" class="hint">সর্বনিম্ন ১, সর্বোচ্চ ১০,০০০।</span>
+        <p id="count-error" class="error-msg" role="alert" hidden></p>
+      </div>
+
+      <div class="actions">
+        <button type="button" id="generate-btn" class="btn btn-primary">
+          <span class="btn-label">জেনারেট করুন</span>
+          <span class="btn-icon" aria-hidden="true">✨</span>
+          <span class="btn-shine" aria-hidden="true"></span>
+        </button>
+        <button type="button" id="clear-btn" class="btn btn-ghost">
+          <span class="btn-label">সব মুছে ফেলুন</span>
+          <span class="btn-icon" aria-hidden="true">🗑️</span>
+        </button>
+      </div>
+
+      <p class="shortcut-hint">
+        <kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>Enter</kbd> — জেনারেট &nbsp;•&nbsp;
+        <kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd> — কপি
+      </p>
+    </section>
+
+    <section class="card result-card" aria-labelledby="result-heading">
+      <div class="result-head">
+        <h2 id="result-heading" class="card-title-sm">
+          <span class="title-bn">তৈরি করা লেখা</span>
+          <span class="title-en">Generated Result</span>
+        </h2>
+        <div class="result-actions">
+          <button type="button" id="copy-btn" class="btn btn-primary btn-sm" disabled>
+            <span class="btn-label" id="copy-btn-label">সব কপি করুন 📋</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="result-body">
+        <div id="empty-state" class="empty-state">
+          <span class="empty-icon" aria-hidden="true">✨</span>
+          <p>আপনার তৈরি করা লেখা এখানে দেখা যাবে</p>
+          <p class="empty-sub">Your generated text will appear here</p>
+        </div>
+
+        <div id="loading-state" class="loading-state" hidden>
+          <span class="spinner" aria-hidden="true"></span>
+          <p>তৈরি হচ্ছে…</p>
+        </div>
+
+        <pre id="result-output" class="result-output" tabindex="0" aria-live="polite" hidden></pre>
+      </div>
+
+      <div class="result-foot">
+        <p id="result-stats" class="stats" aria-live="polite"></p>
+        <p id="status-message" class="status-message" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Made with ❤️ — সব কিছু আপনার ব্রাউজারেই থাকে, কোথাও পাঠানো হয় না।</p>
+  </footer>
+
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
