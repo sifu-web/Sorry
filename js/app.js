@@ -137,7 +137,7 @@ async function generate(text, count) {
   try {
     text_result = generateRepeatedText(text, count);
   } catch (err) {
-    setStatus("কিছু একটা ভুল হয়েছে। আবার চেষ্টা করুন।", true);
+    setStatus("Something went wrong. Please try again.", true);
     toggleResultView("empty");
     state.isGenerating = false;
     generateBtn.classList.remove("is-generating");
@@ -151,11 +151,11 @@ async function generate(text, count) {
   toggleResultView("output");
 
   const stats = computeStats(text_result, count);
-  resultStats.textContent = `${formatNumber(stats.lines)} লাইন • ${formatNumber(
+  resultStats.textContent = `${formatNumber(stats.lines)} lines • ${formatNumber(
     stats.characters
-  )} অক্ষর`;
+  )} characters`;
 
-  setStatus("তৈরি সম্পন্ন হয়েছে ✓");
+  setStatus("Generated successfully ✓");
 
   copyBtn.disabled = false;
   generateBtn.classList.remove("is-generating");
@@ -184,15 +184,15 @@ async function runCopy() {
   clearTimeout(copyResetTimer);
 
   if (ok) {
-    copyBtnLabel.textContent = "কপি হয়েছে ✓";
+    copyBtnLabel.textContent = "Copied ✓";
     copyBtn.classList.add("is-success");
-    showToast("সব লেখা কপি হয়েছে ✓");
+    showToast("All text copied ✓");
   } else {
-    showToast("কপি করা যায়নি। আবার চেষ্টা করুন।", true);
+    showToast("Couldn't copy. Please try again.", true);
   }
 
   copyResetTimer = setTimeout(() => {
-    copyBtnLabel.textContent = "সব কপি করুন 📋";
+    copyBtnLabel.textContent = "Copy All 📋";
     copyBtn.classList.remove("is-success");
   }, 1800);
 }
@@ -211,7 +211,7 @@ clearBtn.addEventListener("click", () => {
   setStatus("");
 
   copyBtn.disabled = true;
-  copyBtnLabel.textContent = "সব কপি করুন 📋";
+  copyBtnLabel.textContent = "Copy All 📋";
   copyBtn.classList.remove("is-success");
 
   textInput.focus();

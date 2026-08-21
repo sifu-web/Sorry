@@ -40,12 +40,12 @@ export function validateText(rawText) {
   const value = (rawText ?? "").toString();
 
   if (value.trim().length === 0) {
-    return { valid: false, message: "দয়া করে কিছু লিখুন।", value };
+    return { valid: false, message: "Please enter some text.", value };
   }
   if (value.length > MAX_TEXT_LENGTH) {
     return {
       valid: false,
-      message: `সর্বোচ্চ ${MAX_TEXT_LENGTH} অক্ষর লেখা যাবে।`,
+      message: `Maximum ${MAX_TEXT_LENGTH} characters allowed.`,
       value,
     };
   }
@@ -62,24 +62,24 @@ export function validateCount(rawCount) {
   const raw = (rawCount ?? "").toString().trim();
 
   if (raw.length === 0) {
-    return { valid: false, message: "কতবার লিখতে চান তা লিখুন।", value: null };
+    return { valid: false, message: "Please enter how many times.", value: null };
   }
 
   // Reject anything that isn't a plain (optionally signed) integer —
   // catches decimals, letters, and other invalid text input.
   if (!/^-?\d+$/.test(raw)) {
-    return { valid: false, message: "সঠিক সংখ্যা দিন।", value: null };
+    return { valid: false, message: "Please enter a valid number.", value: null };
   }
 
   const n = Number(raw);
 
   if (n <= 0) {
-    return { valid: false, message: "কমপক্ষে ১ বার দিতে হবে।", value: null };
+    return { valid: false, message: "Must be at least 1.", value: null };
   }
   if (n > MAX_COUNT) {
     return {
       valid: false,
-      message: "সর্বোচ্চ ১০,০০০ বার লেখা যাবে।",
+      message: "Maximum 10,000 allowed.",
       value: null,
     };
   }

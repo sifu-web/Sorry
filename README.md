@@ -1,15 +1,15 @@
 # Sorry Generator
 
-আপনার লেখা ১ থেকে ১০,০০০ বার পর্যন্ত তৈরি করুন এবং এক ক্লিকে কপি করুন — একটি প্রিমিয়াম, ৩D-অনুপ্রাণিত টেক্সট রিপিটার।
+Generate your text 1 to 10,000 times and copy it in one click — a premium, 3D-inspired text repeater.
 
 A polished, animated, glassmorphic text-repeater web app. Type a message, choose how many times to repeat it, and get a clean numbered list you can copy with one tap — fully in Bangla/English, entirely client-side.
 
 ## Features
 
 - **Text input** — supports Bangla, English, Banglish, emoji, and Unicode, up to 500 characters, with a live character counter.
-- **Repeat count** — number input from 1 to 10,000, plus quick-select chips (১০ / ১০০ / ৫০০ / ১০০০ / ১০০০০).
+- **Repeat count** — number input from 1 to 10,000, plus quick-select chips (10 / 100 / 500 / 1000 / 10000).
 - **Generate** — produces exactly the requested number of lines in the format `1 . your text`, with a lightweight loading state for large counts so the UI never freezes.
-- **Copy All** — one-click copy via the Clipboard API with an automatic `document.execCommand` fallback and a friendly error message if copying truly fails. Button flips to "কপি হয়েছে ✓" and a toast confirms the copy.
+- **Copy All** — one-click copy via the Clipboard API with an automatic `document.execCommand` fallback and a friendly error message if copying truly fails. Button flips to "Copied ✓" and a toast confirms the copy.
 - **Clear** — resets the text, output, and any error state.
 - **Live stats** — line count and character count shown after every generation.
 - **Ambient 3D-style background** — soft drifting "note" particles on a `<canvas>`, with an automatic pure-CSS animated gradient fallback if 2D canvas isn't available.
